@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <title>My Wallets</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <h1>My Wallets!</h1>
+        </header>
+        <main>
+            <form id="add-wallet-form">
+                <fieldset>
+                    <legend>Add a wallet</legend>
+                    <label for="wallet-name-input">Wallet name</label>
+                    <input type="text" id="wallet-name-input" />
+                    <label for="wallet-balance-input">Wallet balance</label>
+                    <input type="text" id="wallet-balance-input" />
+                    <label for="wallet-percent-input">Wallet percent</label>
+                    <input type="text" id="wallet-percent-input" />
+                    <input type="submit" id="create-wallet-btn" value="Create" />
+                </fieldset>
+            </form>
+            <h2>Total balance: <span id="total-balance"></span>$</h2>
+            <p id="user-message"></p>
+            <article id="wallets">
+            </article>
+        </main>
+        <script src="index.js"></script>
+    </body>
+</html>
