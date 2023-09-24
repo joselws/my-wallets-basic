@@ -1,9 +1,15 @@
 const walletsElement = document.getElementById("wallets");
+
 const addWalletForm = document.getElementById("add-wallet-form");
 const walletNameInput = document.getElementById("wallet-name-input");
 const walletBalanceInput = document.getElementById("wallet-balance-input");
 const walletPercentInput = document.getElementById("wallet-percent-input");
+
 const totalBalance = document.getElementById("total-balance");
+
+const depositForm = document.getElementById("deposit-form");
+const depositInput = document.getElementById("deposit-input");
+
 const userMessage = document.getElementById("user-message");
 
 let userMessageTimeoutHandle;
@@ -60,7 +66,7 @@ function isUniqueWalletName(walletName) {
     }
     const walletNamesElements = document.querySelectorAll(".wallet-name")
 
-    for(let i = 0; i < walletNamesElements.length; i++) {
+    for (let i = 0; i < walletNamesElements.length; i++) {
         if(walletNamesElements[i].innerHTML === walletName) {
             return false
         }
@@ -138,7 +144,7 @@ function showNewMessage(message, color) {
 
 function saveWallets() {
     wallets = []
-    for(i = 0; i < walletsElement.childElementCount; i++) {
+    for (i = 0; i < walletsElement.childElementCount; i++) {
         wallet = {
             name: walletsElement.children[i].children[walletNameIndex].innerHTML,
             balance: walletsElement.children[i].children[walletBalanceIndex].innerHTML,
@@ -151,10 +157,75 @@ function saveWallets() {
 
 function loadWallets() {
     wallets = JSON.parse(localStorage.getItem(walletStorageKey));
-    for(wallet of wallets) {
+    for (wallet of wallets) {
         createNewWallet(wallet);
     }
 }
+
+function isWalletsPercentValid() {
+    let total = 0
+    for (singleWalletElement of walletsElement.children) {
+        let percent = singleWalletElement.children[walletPercentIndex].innerHTML;
+        total += parseFloat(percent);
+    }
+    return total == 100;
+}
+
+function deposit(amount) {
+    wallets = []
+
+    // filter wallets that have percents
+    for (singleWalletElement of walletsElement.children) {
+        if (singleWalletElement.children[walletPercentIndex].innerHTML !== "0") {
+            wallets.push(singleWalletElement);
+        }
+    }
+
+    lastWallet = wallets.pop();
+    let cumulativeAmountDeposited = 0
+
+    for (singleWalletElement of wallets) {
+        const percent = parseFloat(singleWalletElement.children[walletPercentIndex].innerHTML);
+        const correspondingAmount = Number((amount * percent / 100).toFixed(2));
+        cumulativeAmountDeposited += correspondingAmount;
+        addBalanceToWallet(singleWalletElement, correspondingAmount)
+    }
+    
+    let leftoverAmount = Number((amount - cumulativeAmountDeposited).toFixed(2));
+    addBalanceToWallet(lastWallet, leftoverAmount);
+}
+
+function addBalanceToWallet(walletElement, amount) {
+    const balance = parseFloat(walletElement.children[walletBalanceIndex].innerHTML);
+    const newBalance = balance + amount;
+    walletElement.children[walletBalanceIndex].innerHTML = Number(newBalance.toFixed(2));
+}
+
+
+depositForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!isWalletsPercentValid()) {
+        showNewMessage("Wallet percents must add up to 100!", "red");
+        return;
+    }
+    
+    const depositValue = depositInput.value;
+    if (depositValue === "") {
+        showNewMessage("Deposit value must not be empty!", "red");
+        return;
+    }
+    if (isNaN(parseFloat(depositValue))) {
+        showNewMessage("Deposit value must be a number!", "red");
+        return;
+    }
+    depositInput.value = "";
+
+    deposit(parseFloat(depositValue));
+    computeTotalBalance();
+    saveWallets();
+    showNewMessage(`Deposit of ${depositValue}$ successful!`, "green");
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
     loadWallets();
