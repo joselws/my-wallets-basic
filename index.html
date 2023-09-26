@@ -11,6 +11,7 @@
             <h1>My Wallets!</h1>
         </header>
         <main>
+            <!-- Create Wallet feature -->
             <form id="create-wallet-form">
                 <fieldset>
                     <legend>Add a wallet</legend>
@@ -23,6 +24,8 @@
                     <input type="submit" id="create-wallet-btn" value="Create" />
                 </fieldset>
             </form>
+
+            <!-- Deposit feature -->
             <form id="deposit-form">
                 <fieldset>
                     <legend>Deposit money across wallets</legend>
@@ -31,6 +34,8 @@
                     <input type="submit" id="deposit-btn" value="Deposit" />
                 </fieldset>
             </form>
+
+            <!-- Add money feature -->
             <button id="open-add-modal-btn">Add money to wallet</button>
             <dialog id="add-to-wallet-modal">
                 <h3 class="modal-header">Add money to a wallet</h3>
@@ -46,8 +51,31 @@
                     </fieldset>
                 </form>
             </dialog>
+
+            <!-- Deduct feature -->
+            <button id="open-deduct-modal-btn">Deduct money from wallet</button>
+            <dialog id="deduct-from-wallet-modal">
+                <h3 class="modal-header">Deduct money from a wallet</h3>
+                <p id="close-deduct-modal-btn">&times;</p>
+                <form id="deduct-from-wallet-form" method="dialog">
+                    <fieldset>
+                        <legend>Please fill in the data</legend>
+                        <label for="deduct-from-wallet-select">Select your wallet</label>
+                        <select name="deduct-from-wallet-select" id="deduct-from-wallet-select" required></select>
+                        <label for="deduct-from-wallet-amount-input">Amount to deduct</label>
+                        <input type="text" id="deduct-from-wallet-amount-input" />
+                        <input type="submit" id="deduct-from-wallet-form-submit-btn" value="Deduct from wallet" />
+                    </fieldset>
+                </form>
+            </dialog>
+            
+            <!-- Total balance -->
             <h2>Total balance: <span id="total-balance"></span>$</h2>
+
+            <!-- User messages -->
             <p id="user-message"></p>
+
+            <!-- Wallets -->
             <article id="wallets">
             </article>
         </main>

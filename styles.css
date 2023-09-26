@@ -10,7 +10,10 @@ h1 {
     align-items: center;
 }
 
-#close-add-modal-btn:focus, #close-add-modal-btn:hover {
+#close-add-modal-btn:focus, 
+#close-add-modal-btn:hover, 
+#close-deduct-modal-btn:focus, 
+#close-deduct-modal-btn:hover {
     cursor: pointer;
 }
 

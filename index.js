@@ -17,6 +17,13 @@ const addToWalletForm = document.getElementById("add-to-wallet-form");
 const addToWalletSelect = document.getElementById("add-to-wallet-select");
 const addToWalletAmountInput = document.getElementById("add-to-wallet-amount-input");
 
+const openDeductModalBtn = document.getElementById("open-deduct-modal-btn");
+const closeDeductModalBtn = document.getElementById("close-deduct-modal-btn");
+const deductFromWalletModal = document.getElementById("deduct-from-wallet-modal");
+const deductFromWalletForm = document.getElementById("deduct-from-wallet-form");
+const deductFromWalletSelect = document.getElementById("deduct-from-wallet-select");
+const deductFromWalletAmountInput = document.getElementById("deduct-from-wallet-amount-input");
+
 const userMessage = document.getElementById("user-message");
 
 let userMessageTimeoutHandle;
@@ -343,6 +350,72 @@ addToWalletForm.addEventListener("submit", event => {
     }
 
     addBalanceToWallet(walletElement, parseFloat(amount));
+    computeTotalBalance();
+    clearInputs();
+    saveWallets();
+    return;
+});
+
+//
+// DEDUCT
+//
+
+openDeductModalBtn.addEventListener("click", () => {
+    populateSelectFormWithNames(deductFromWalletSelect, getWalletNames());
+    deductFromWalletModal.showModal();    
+});
+
+closeDeductModalBtn.addEventListener("click", () => {
+    deductFromWalletModal.close();    
+});
+
+deductFromWalletModal.addEventListener("close", event => {
+    emptySelectForm(deductFromWalletSelect);
+});
+
+deductFromWalletModal.addEventListener("click", event => {
+    const dialogDimensions = deductFromWalletModal.getBoundingClientRect()
+    if (
+        event.clientX < dialogDimensions.left ||
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
+    ) {
+        deductFromWalletModal.close()
+    }
+});
+
+function deductBalanceFromWallet(walletElement, amount) {
+    const balance = parseFloat(walletElement.children[walletBalanceIndex].innerHTML);
+    if (balance < amount) {
+        showNewMessage("Amount to deduct must be higher than wallet balance!", "red");
+        return;
+    }
+    const newBalance = balance - amount;
+    walletElement.children[walletBalanceIndex].innerHTML = Number(newBalance.toFixed(2));
+    showNewMessage(`Deduction of ${amount} successful`, "green")
+    return true;
+}
+
+deductFromWalletForm.addEventListener("submit", event => {
+    console.log("event submitted");
+    const walletElement = getWalletElementFromName(deductFromWalletSelect.value);
+    if (walletElement == null) {
+        showNewMessage(`Could not find wallet ${deductFromWalletSelect.value}.`, "red")
+        return;
+    }
+
+    const amount = deductFromWalletAmountInput.value;
+    if (amount === "") {
+        showNewMessage("Amount value should not be empty!", "red")
+        return;
+    }
+    if (!isValidNumericInput(amount)) {
+        showNewMessage("Amount should be a valid positive number!", "red")
+        return;
+    }
+
+    deductBalanceFromWallet(walletElement, parseFloat(amount));
     computeTotalBalance();
     clearInputs();
     saveWallets();
