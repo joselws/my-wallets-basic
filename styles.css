@@ -10,6 +10,10 @@ h1 {
     align-items: center;
 }
 
+#close-add-modal-btn:focus, #close-add-modal-btn:hover {
+    cursor: pointer;
+}
+
 .wallet {
     border: 1px solid green;
     padding: 10px;

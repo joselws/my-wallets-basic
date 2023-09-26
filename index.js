@@ -1,6 +1,6 @@
 const walletsElement = document.getElementById("wallets");
 
-const addWalletForm = document.getElementById("add-wallet-form");
+const createWalletForm = document.getElementById("create-wallet-form");
 const walletNameInput = document.getElementById("wallet-name-input");
 const walletBalanceInput = document.getElementById("wallet-balance-input");
 const walletPercentInput = document.getElementById("wallet-percent-input");
@@ -9,6 +9,13 @@ const totalBalance = document.getElementById("total-balance");
 
 const depositForm = document.getElementById("deposit-form");
 const depositInput = document.getElementById("deposit-input");
+
+const openAddModalBtn = document.getElementById("open-add-modal-btn");
+const closeAddModalBtn = document.getElementById("close-add-modal-btn");
+const addToWalletModal = document.getElementById("add-to-wallet-modal");
+const addToWalletForm = document.getElementById("add-to-wallet-form");
+const addToWalletSelect = document.getElementById("add-to-wallet-select");
+const addToWalletAmountInput = document.getElementById("add-to-wallet-amount-input");
 
 const userMessage = document.getElementById("user-message");
 
@@ -20,8 +27,11 @@ const walletPercentIndex = 2;
 
 const walletStorageKey = "wallets"
 
+//
+// CREATE WALLET
+//
 
-addWalletForm.addEventListener("submit", event => {
+createWalletForm.addEventListener("submit", event => {
     event.preventDefault();
 
     const walletName = walletNameInput.value;
@@ -45,12 +55,12 @@ function isValidInput(walletName, walletBalance, walletPercent) {
         showNewMessage("Wallet name cannot be empty!", "red")
         return false;
     }
-    if (isNaN(parseFloat(walletBalance))) {
-        showNewMessage("Wallet balance must be a number!", "red")
+    if (!isValidNumericInput(walletBalance)) {
+        showNewMessage("Wallet balance must be a valid positive number!", "red")
         return false;
     }
-    if (isNaN(parseFloat(walletPercent))) {
-        showNewMessage("Wallet percent must be a number!", "red")
+    if (!isValidNumericInput(walletPercent)) {
+        showNewMessage("Wallet percent must be a valid positive number!", "red")
         return false;
     }
     if (!isUniqueWalletName(walletName)) {
@@ -110,6 +120,7 @@ function clearInputs() {
     walletNameInput.value = "";
     walletBalanceInput.value = "";
     walletPercentInput.value = "";
+    addToWalletAmountInput.value = "";
 }
 
 function deleteWallet(event) {
@@ -142,6 +153,11 @@ function showNewMessage(message, color) {
     }, 5_000);
 }
 
+
+//
+// LOCAL STORAGE
+//
+
 function saveWallets() {
     wallets = []
     for (i = 0; i < walletsElement.childElementCount; i++) {
@@ -156,11 +172,19 @@ function saveWallets() {
 }
 
 function loadWallets() {
-    wallets = JSON.parse(localStorage.getItem(walletStorageKey));
+    const data = localStorage.getItem(walletStorageKey);
+    if (data === null) {
+        return;
+    }
+    wallets = JSON.parse(data);
     for (wallet of wallets) {
         createNewWallet(wallet);
     }
 }
+
+//
+// DEPOSIT
+//
 
 function isWalletsPercentValid() {
     let total = 0
@@ -201,7 +225,6 @@ function addBalanceToWallet(walletElement, amount) {
     walletElement.children[walletBalanceIndex].innerHTML = Number(newBalance.toFixed(2));
 }
 
-
 depositForm.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!isWalletsPercentValid()) {
@@ -214,8 +237,8 @@ depositForm.addEventListener("submit", (event) => {
         showNewMessage("Deposit value must not be empty!", "red");
         return;
     }
-    if (isNaN(parseFloat(depositValue))) {
-        showNewMessage("Deposit value must be a number!", "red");
+    if (!isValidNumericInput(depositValue)) {
+        showNewMessage("Deposit value must be a valid positive number!", "red");
         return;
     }
     depositInput.value = "";
@@ -226,6 +249,109 @@ depositForm.addEventListener("submit", (event) => {
     showNewMessage(`Deposit of ${depositValue}$ successful!`, "green");
 });
 
+//
+// ADD TO WALLET
+//
+
+function getWalletNames() {
+    walletNames = []
+    for (walletElement of walletsElement.children) {
+        walletNames.push(walletElement.children[walletNameIndex].innerHTML)
+    }
+    return walletNames;
+}
+
+function populateSelectFormWithNames(selectElement, walletNames) {
+    for (walletName of walletNames) {
+        const newOption = createSelectOptionElement(walletName)
+        selectElement.appendChild(newOption);
+    }
+}
+
+function createSelectOptionElement(value) {
+    const newOption = document.createElement("option");
+    newOption.setAttribute("value", value);
+    newOption.innerHTML = value;
+    return newOption;
+}
+
+function emptySelectForm(selectElement) {
+    while (selectElement.options.length > 0) {
+        selectElement.remove(selectElement.options.length - 1);
+    }
+}
+
+openAddModalBtn.addEventListener("click", () => {
+    populateSelectFormWithNames(addToWalletSelect, getWalletNames());
+    addToWalletModal.showModal();    
+});
+
+closeAddModalBtn.addEventListener("click", () => {
+    addToWalletModal.close();    
+});
+
+addToWalletModal.addEventListener("close", event => {
+    emptySelectForm(addToWalletSelect);
+});
+
+addToWalletModal.addEventListener("click", event => {
+    const dialogDimensions = addToWalletModal.getBoundingClientRect()
+    if (
+        event.clientX < dialogDimensions.left ||
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
+    ) {
+        addToWalletModal.close()
+    }
+});
+
+function getWalletElementFromName(walletName) {
+    for (walletElement of walletsElement.children) {
+        if (walletElement.children[walletNameIndex].innerHTML === walletName) {
+            return walletElement
+        }
+    }
+    console.log(`Wallet ${walletName} not found!`);
+    return null
+}
+
+function isValidNumericInput(numberInput) {
+    const number = parseFloat(numberInput)
+    if (isNaN(number) || number < 0) {
+        return false
+    }
+    return true
+}
+
+addToWalletForm.addEventListener("submit", event => {
+    console.log("event submitted");
+    const walletElement = getWalletElementFromName(addToWalletSelect.value);
+    if (walletElement == null) {
+        showNewMessage(`Could not find wallet ${addToWalletSelect.value}.`, "red")
+        return;
+    }
+
+    const amount = addToWalletAmountInput.value;
+    if (amount === "") {
+        showNewMessage("Amount value should not be empty!", "red")
+        return;
+    }
+    if (!isValidNumericInput(amount)) {
+        showNewMessage("Amount should be a valid positive number!", "red")
+        return;
+    }
+
+    addBalanceToWallet(walletElement, parseFloat(amount));
+    computeTotalBalance();
+    clearInputs();
+    saveWallets();
+    return;
+});
+
+//
+// INITIAL LOAD
+//
 
 document.addEventListener("DOMContentLoaded", () => {
     loadWallets();
