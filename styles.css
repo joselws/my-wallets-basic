@@ -13,7 +13,9 @@ h1 {
 #close-add-modal-btn:focus, 
 #close-add-modal-btn:hover, 
 #close-deduct-modal-btn:focus, 
-#close-deduct-modal-btn:hover {
+#close-deduct-modal-btn:hover,
+#close-transfer-modal-btn:focus,
+#close-transfer-modal-btn:hover {
     cursor: pointer;
 }
 

@@ -1,15 +1,23 @@
+// wallets
 const walletsElement = document.getElementById("wallets");
+const walletNameIndex = 0;
+const walletBalanceIndex = 1;
+const walletPercentIndex = 2;
 
+// create wallets
 const createWalletForm = document.getElementById("create-wallet-form");
 const walletNameInput = document.getElementById("wallet-name-input");
 const walletBalanceInput = document.getElementById("wallet-balance-input");
 const walletPercentInput = document.getElementById("wallet-percent-input");
 
+// total balance
 const totalBalance = document.getElementById("total-balance");
 
+// deposit
 const depositForm = document.getElementById("deposit-form");
 const depositInput = document.getElementById("deposit-input");
 
+// add to wallet
 const openAddModalBtn = document.getElementById("open-add-modal-btn");
 const closeAddModalBtn = document.getElementById("close-add-modal-btn");
 const addToWalletModal = document.getElementById("add-to-wallet-modal");
@@ -17,6 +25,7 @@ const addToWalletForm = document.getElementById("add-to-wallet-form");
 const addToWalletSelect = document.getElementById("add-to-wallet-select");
 const addToWalletAmountInput = document.getElementById("add-to-wallet-amount-input");
 
+// deduct from wallet
 const openDeductModalBtn = document.getElementById("open-deduct-modal-btn");
 const closeDeductModalBtn = document.getElementById("close-deduct-modal-btn");
 const deductFromWalletModal = document.getElementById("deduct-from-wallet-modal");
@@ -24,14 +33,20 @@ const deductFromWalletForm = document.getElementById("deduct-from-wallet-form");
 const deductFromWalletSelect = document.getElementById("deduct-from-wallet-select");
 const deductFromWalletAmountInput = document.getElementById("deduct-from-wallet-amount-input");
 
-const userMessage = document.getElementById("user-message");
+// transfer
+const openTransferModalBtn = document.getElementById("open-transfer-modal-btn");
+const transferModal = document.getElementById("transfer-wallet-modal");
+const closeTransferModalBtn = document.getElementById("close-transfer-modal-btn");
+const transferWalletForm = document.getElementById("transfer-wallet-form");
+const transferWalletSourceSelect = document.getElementById("transfer-wallet-source-select");
+const transferWalletDestinationSelect = document.getElementById("transfer-wallet-destination-select");
+const transferWalletAmountInput = document.getElementById("transfer-wallet-amount-input");
 
+// user message
+const userMessage = document.getElementById("user-message");
 let userMessageTimeoutHandle;
 
-const walletNameIndex = 0;
-const walletBalanceIndex = 1;
-const walletPercentIndex = 2;
-
+// local storage
 const walletStorageKey = "wallets"
 
 //
@@ -128,6 +143,7 @@ function clearInputs() {
     walletBalanceInput.value = "";
     walletPercentInput.value = "";
     addToWalletAmountInput.value = "";
+    transferWalletAmountInput.value = "";
 }
 
 function deleteWallet(event) {
@@ -388,17 +404,14 @@ deductFromWalletModal.addEventListener("click", event => {
 function deductBalanceFromWallet(walletElement, amount) {
     const balance = parseFloat(walletElement.children[walletBalanceIndex].innerHTML);
     if (balance < amount) {
-        showNewMessage("Amount to deduct must be higher than wallet balance!", "red");
-        return;
+        return false;
     }
     const newBalance = balance - amount;
     walletElement.children[walletBalanceIndex].innerHTML = Number(newBalance.toFixed(2));
-    showNewMessage(`Deduction of ${amount} successful`, "green")
     return true;
 }
 
 deductFromWalletForm.addEventListener("submit", event => {
-    console.log("event submitted");
     const walletElement = getWalletElementFromName(deductFromWalletSelect.value);
     if (walletElement == null) {
         showNewMessage(`Could not find wallet ${deductFromWalletSelect.value}.`, "red")
@@ -415,7 +428,83 @@ deductFromWalletForm.addEventListener("submit", event => {
         return;
     }
 
-    deductBalanceFromWallet(walletElement, parseFloat(amount));
+    if (!deductBalanceFromWallet(walletElement, parseFloat(amount))) {
+        showNewMessage("Amount to deduct must be higher than wallet balance!", "red");
+        return
+    }
+    computeTotalBalance();
+    clearInputs();
+    saveWallets();
+    showNewMessage(`Deduction of ${amount} successful`, "green")
+    return;
+});
+
+//
+// TRANSFER
+//
+
+openTransferModalBtn.addEventListener("click", () => {
+    const walletNames = getWalletNames();
+    populateSelectFormWithNames(transferWalletSourceSelect, walletNames);
+    populateSelectFormWithNames(transferWalletDestinationSelect, walletNames);
+    transferModal.showModal();    
+});
+
+closeTransferModalBtn.addEventListener("click", () => {
+    transferModal.close();    
+});
+
+transferModal.addEventListener("close", event => {
+    emptySelectForm(transferWalletSourceSelect);
+    emptySelectForm(transferWalletDestinationSelect);
+});
+
+transferModal.addEventListener("click", event => {
+    const dialogDimensions = transferModal.getBoundingClientRect()
+    if (
+        event.clientX < dialogDimensions.left ||
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
+    ) {
+        transferModal.close()
+    }
+});
+
+transferWalletForm.addEventListener("submit", event => {
+    const walletSourceElement = getWalletElementFromName(transferWalletSourceSelect.value);
+    if (walletSourceElement == null) {
+        showNewMessage(`Could not find wallet ${transferWalletSourceSelect.value}.`, "red")
+        return;
+    }
+
+    const walletDestinationElement = getWalletElementFromName(transferWalletDestinationSelect.value);
+    if (walletDestinationElement == null) {
+        showNewMessage(`Could not find wallet ${transferWalletDestinationSelect.value}.`, "red")
+        return;
+    }
+
+    if (walletSourceElement === walletDestinationElement) {
+        showNewMessage("You can't select the same wallet!", "red")
+        return;
+    }
+
+    const amount = transferWalletAmountInput.value;
+    if (amount === "") {
+        showNewMessage("Amount value should not be empty!", "red")
+        return;
+    }
+    if (!isValidNumericInput(amount)) {
+        showNewMessage("Amount should be a valid positive number!", "red")
+        return;
+    }
+
+    const amountNumber = parseFloat(amount)
+    if (!deductBalanceFromWallet(walletSourceElement, amountNumber)) {
+        showNewMessage("Amount to deduct must be higher than wallet balance!", "red");
+        return
+    }
+    addBalanceToWallet(walletDestinationElement, amountNumber)
     computeTotalBalance();
     clearInputs();
     saveWallets();

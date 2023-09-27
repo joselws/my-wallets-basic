@@ -68,6 +68,25 @@
                     </fieldset>
                 </form>
             </dialog>
+
+            <!-- Transfer feature -->
+            <button id="open-transfer-modal-btn">Transfer money across wallets</button>
+            <dialog id="transfer-wallet-modal">
+                <h3 class="modal-header">Move money across wallets</h3>
+                <p id="close-transfer-modal-btn">&times;</p>
+                <form id="transfer-wallet-form" method="dialog">
+                    <fieldset>
+                        <legend>Please fill in the data</legend>
+                        <label for="transfer-wallet-source-select">Select your source wallet</label>
+                        <select name="transfer-wallet-source-select" id="transfer-wallet-source-select" required></select>
+                        <label for="transfer-wallet-destination-select">Select your destination wallet</label>
+                        <select name="transfer-wallet-destination-select" id="transfer-wallet-destination-select" required></select>
+                        <label for="transfer-wallet-amount-input">Amount of money to move</label>
+                        <input type="text" id="transfer-wallet-amount-input" />
+                        <input type="submit" id="transfer-wallet-form-submit-btn" value="Transfer money" />
+                    </fieldset>
+                </form>
+            </dialog>
             
             <!-- Total balance -->
             <h2>Total balance: <span id="total-balance"></span>$</h2>
