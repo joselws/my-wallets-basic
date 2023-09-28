@@ -10,6 +10,15 @@ const walletNameInput = document.getElementById("wallet-name-input");
 const walletBalanceInput = document.getElementById("wallet-balance-input");
 const walletPercentInput = document.getElementById("wallet-percent-input");
 
+// edit wallet
+const editWalletModal = document.getElementById("edit-wallet-modal")
+const editWalletForm = document.getElementById("edit-wallet-form");
+const closeEditModalBtn = document.getElementById("close-edit-modal-btn");
+const walletNameEditInput = document.getElementById("wallet-name-edit-input");
+const walletBalanceEditInput = document.getElementById("wallet-balance-edit-input");
+const walletPercentEditInput = document.getElementById("wallet-percent-edit-input");
+let walletElementToEdit;
+
 // total balance
 const totalBalance = document.getElementById("total-balance");
 
@@ -122,6 +131,11 @@ function createNewWallet(wallet) {
     walletPercentElement.setAttribute("class", "wallet-percent");
     walletPercentElement.innerHTML = wallet.percent
     
+    const walletEditBtn = document.createElement("button");
+    walletEditBtn.setAttribute("class", "wallet-edit-btn");
+    walletEditBtn.innerHTML = "Edit"
+    walletEditBtn.addEventListener("click", editWallet);
+
     const walletDeleteBtn = document.createElement("button");
     walletDeleteBtn.setAttribute("class", "wallet-delete-btn");
     walletDeleteBtn.innerHTML = "Delete"
@@ -131,6 +145,7 @@ function createNewWallet(wallet) {
     walletElement.appendChild(walletBalanceElement);
     walletElement.appendChild(walletPercentElement);
     walletElement.appendChild(walletDeleteBtn);
+    walletElement.appendChild(walletEditBtn);
 
     walletsElement.appendChild(walletElement);
 
@@ -152,6 +167,73 @@ function deleteWallet(event) {
     showNewMessage(`Wallet "${walletName}" deleted!`, "green");
     computeTotalBalance();
     saveWallets();
+}
+
+function editWallet(event) {
+    walletElementToEdit = event.target.parentElement;
+    walletNameEditInput.value = walletElementToEdit.children[walletNameIndex].innerHTML;
+    walletBalanceEditInput.value = walletElementToEdit.children[walletBalanceIndex].innerHTML;
+    walletPercentEditInput.value = walletElementToEdit.children[walletPercentIndex].innerHTML;
+    editWalletModal.showModal()
+}
+
+closeEditModalBtn.addEventListener("click", () => {
+    editWalletModal.close();    
+});
+
+editWalletModal.addEventListener("click", event => {
+    const dialogDimensions = editWalletModal.getBoundingClientRect()
+    if (
+        event.clientX < dialogDimensions.left ||
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
+    ) {
+        editWalletModal.close()
+    }
+});
+
+editWalletForm.addEventListener("submit", (event) => {
+    const walletName = walletNameEditInput.value;
+    let walletBalance = walletBalanceEditInput.value;
+    let walletPercent = walletPercentEditInput.value;
+
+    if (walletBalance === "") {walletBalance = "0"}
+    if (walletPercent === "") {walletPercent = "0"}
+
+    if (!isValidEditInput(walletName, walletBalance, walletPercent)) {
+        return;
+    }
+    walletElementToEdit.children[walletNameIndex].innerHTML = walletName;
+    walletElementToEdit.children[walletBalanceIndex].innerHTML = walletBalance;
+    walletElementToEdit.children[walletPercentIndex].innerHTML = walletPercent;
+    computeTotalBalance();
+    saveWallets();
+    showNewMessage(`Wallet "${walletName}" edited successfully!`, "green");
+});
+
+function isValidEditInput(newName, newBalance, newPercent) {
+    if (newName === "") {
+        showNewMessage("Wallet name cannot be empty!", "red")
+        return false;
+    }
+    if (!isValidNumericInput(newBalance)) {
+        showNewMessage("Wallet balance must be a valid positive number!", "red")
+        return false;
+    }
+    if (!isValidNumericInput(newPercent)) {
+        showNewMessage("Wallet percent must be a valid positive number!", "red")
+        return false;
+    }
+
+    let walletNames = getWalletNames()
+    const originalWalletName = walletElementToEdit.children[walletNameIndex].innerHTML;
+    walletNames = walletNames.filter((walletName) => walletName != originalWalletName);
+    if (walletNames.includes(newName)) {
+        showNewMessage(`Wallet "${newName}" already exists!`, "red")
+        return false
+    }
+    return true
 }
 
 function computeTotalBalance() {

@@ -39,7 +39,7 @@
             <button id="open-add-modal-btn">Add money to wallet</button>
             <dialog id="add-to-wallet-modal">
                 <h3 class="modal-header">Add money to a wallet</h3>
-                <p id="close-add-modal-btn">&times;</p>
+                <p id="close-add-modal-btn" class="close-modal-btn">&times;</p>
                 <form id="add-to-wallet-form" method="dialog">
                     <fieldset>
                         <legend>Please fill in the data</legend>
@@ -54,9 +54,9 @@
 
             <!-- Deduct feature -->
             <button id="open-deduct-modal-btn">Deduct money from wallet</button>
-            <dialog id="deduct-from-wallet-modal">
+            <dialog id="deduct-from-wallet-modal" >
                 <h3 class="modal-header">Deduct money from a wallet</h3>
-                <p id="close-deduct-modal-btn">&times;</p>
+                <p id="close-deduct-modal-btn" class="close-modal-btn">&times;</p>
                 <form id="deduct-from-wallet-form" method="dialog">
                     <fieldset>
                         <legend>Please fill in the data</legend>
@@ -73,7 +73,7 @@
             <button id="open-transfer-modal-btn">Transfer money across wallets</button>
             <dialog id="transfer-wallet-modal">
                 <h3 class="modal-header">Move money across wallets</h3>
-                <p id="close-transfer-modal-btn">&times;</p>
+                <p id="close-transfer-modal-btn" class="close-modal-btn">&times;</p>
                 <form id="transfer-wallet-form" method="dialog">
                     <fieldset>
                         <legend>Please fill in the data</legend>
@@ -84,6 +84,24 @@
                         <label for="transfer-wallet-amount-input">Amount of money to move</label>
                         <input type="text" id="transfer-wallet-amount-input" />
                         <input type="submit" id="transfer-wallet-form-submit-btn" value="Transfer money" />
+                    </fieldset>
+                </form>
+            </dialog>
+
+            <!-- Edit wallet -->
+            <dialog id="edit-wallet-modal">
+                <h3 class="modal-header">Edit wallets</h3>
+                <p id="close-edit-modal-btn" class="close-modal-btn">&times;</p>
+                <form id="edit-wallet-form" method="dialog">
+                    <fieldset>
+                        <legend>Edit wallet</legend>
+                        <label for="wallet-name-edit-input">Wallet name</label>
+                        <input autofocus type="text" id="wallet-name-edit-input" />
+                        <label for="wallet-balance-edit-input">Wallet balance</label>
+                        <input type="text" id="wallet-balance-edit-input" />
+                        <label for="wallet-percent-edit-input">Wallet percent</label>
+                        <input type="text" id="wallet-percent-edit-input" />
+                        <input type="submit" id="edit-wallet-btn" value="Submit" />
                     </fieldset>
                 </form>
             </dialog>
