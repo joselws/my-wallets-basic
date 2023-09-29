@@ -57,6 +57,8 @@ const setPercentsModal = document.getElementById("set-percents-modal");
 const closeSetPercentsModalBtn = document.getElementById("close-set-percents-modal-btn");
 const setPercentsForm = document.getElementById("set-percents-form");
 const setPercentsFieldset = document.getElementById("set-percents-fieldset");
+const totalPercentNumber = document.getElementById("total-percent-number");
+const totalPercentMessage = document.getElementById("total-percent-message");
 const setPercentsInputClassName = "set-percents-input";
 
 // user message
@@ -248,7 +250,7 @@ function computeTotalBalance() {
     const walletBalanceElements = document.querySelectorAll(".wallet-balance")
     let total = 0;
     walletBalanceElements.forEach(walletBalanceElement => {
-        total += parseFloat(walletBalanceElement.innerHTML)
+        total += Number(walletBalanceElement.innerHTML)
     });
     totalBalance.innerHTML = total;
 }
@@ -303,7 +305,7 @@ function isWalletsPercentValid() {
     let total = 0
     for (singleWalletElement of walletsElement.children) {
         let percent = singleWalletElement.children[walletPercentIndex].innerHTML;
-        total += parseFloat(percent);
+        total += Number(percent);
     }
     return total == 100;
 }
@@ -322,7 +324,7 @@ function deposit(amount) {
     let cumulativeAmountDeposited = 0
 
     for (singleWalletElement of wallets) {
-        const percent = parseFloat(singleWalletElement.children[walletPercentIndex].innerHTML);
+        const percent = Number(singleWalletElement.children[walletPercentIndex].innerHTML);
         const correspondingAmount = Number((amount * percent / 100).toFixed(2));
         cumulativeAmountDeposited += correspondingAmount;
         addBalanceToWallet(singleWalletElement, correspondingAmount)
@@ -333,7 +335,7 @@ function deposit(amount) {
 }
 
 function addBalanceToWallet(walletElement, amount) {
-    const balance = parseFloat(walletElement.children[walletBalanceIndex].innerHTML);
+    const balance = Number(walletElement.children[walletBalanceIndex].innerHTML);
     const newBalance = balance + amount;
     walletElement.children[walletBalanceIndex].innerHTML = Number(newBalance.toFixed(2));
 }
@@ -356,7 +358,7 @@ depositForm.addEventListener("submit", (event) => {
     }
     depositInput.value = "";
 
-    deposit(parseFloat(depositValue));
+    deposit(Number(depositValue));
     computeTotalBalance();
     saveWallets();
     showNewMessage(`Deposit of ${depositValue}$ successful!`, "green");
@@ -429,7 +431,7 @@ function getWalletElementFromName(walletName) {
 }
 
 function isValidNumericInput(numberInput) {
-    const number = parseFloat(numberInput)
+    const number = Number(numberInput)
     if (isNaN(number) || number < 0) {
         return false
     }
@@ -437,7 +439,7 @@ function isValidNumericInput(numberInput) {
 }
 
 function isValidPercentInput(numberInput) {
-    const number = parseFloat(numberInput)
+    const number = Number(numberInput)
     if (isNaN(number) || number < 0 || number > 100) {
         return false
     }
@@ -461,7 +463,7 @@ addToWalletForm.addEventListener("submit", event => {
         return;
     }
 
-    addBalanceToWallet(walletElement, parseFloat(amount));
+    addBalanceToWallet(walletElement, Number(amount));
     computeTotalBalance();
     clearInputs();
     saveWallets();
@@ -498,7 +500,7 @@ deductFromWalletModal.addEventListener("click", event => {
 });
 
 function deductBalanceFromWallet(walletElement, amount) {
-    const balance = parseFloat(walletElement.children[walletBalanceIndex].innerHTML);
+    const balance = Number(walletElement.children[walletBalanceIndex].innerHTML);
     if (balance < amount) {
         return false;
     }
@@ -524,7 +526,7 @@ deductFromWalletForm.addEventListener("submit", event => {
         return;
     }
 
-    if (!deductBalanceFromWallet(walletElement, parseFloat(amount))) {
+    if (!deductBalanceFromWallet(walletElement, Number(amount))) {
         showNewMessage("Amount to deduct must be higher than wallet balance!", "red");
         return
     }
@@ -595,7 +597,7 @@ transferWalletForm.addEventListener("submit", event => {
         return;
     }
 
-    const amountNumber = parseFloat(amount)
+    const amountNumber = Number(amount)
     if (!deductBalanceFromWallet(walletSourceElement, amountNumber)) {
         showNewMessage("Amount to deduct must be higher than wallet balance!", "red");
         return
@@ -614,6 +616,7 @@ transferWalletForm.addEventListener("submit", event => {
 openSetPercentsModalBtn.addEventListener("click", event => {
     setPercentsModal.showModal();
     populateSetPercentsForm();
+    computeTotalPercent();
 });
 
 closeSetPercentsModalBtn.addEventListener("click", () => {
@@ -668,6 +671,7 @@ function createWalletPercentInputElement(walletName, walletPercent) {
     input.setAttribute("type", "text");
     input.setAttribute("id", walletName);
     input.setAttribute("class", setPercentsInputClassName);
+    input.addEventListener("input", computeTotalPercent);
     input.value = walletPercent;
     return input
 }
@@ -677,6 +681,28 @@ function emptyFieldsetForm(fieldsetElement) {
     while (counter > 0) {
         fieldsetElement.children[counter].remove();
         counter--;
+    }
+}
+
+function computeTotalPercent(event) {
+    let total = 0;
+    const inputs = document.getElementsByClassName(setPercentsInputClassName);
+    for (input of inputs) {
+        if (input.value === "") {
+            total += 0
+        } else {
+            total += Number(input.value);
+        }
+    }
+    if (isNaN(total)) {
+        totalPercentNumber.innerHTML = "no text allowed";
+    } else {
+        totalPercentNumber.innerHTML = total;
+    }
+    if (total === 100) {
+        totalPercentMessage.style.color = "green";
+    } else {
+        totalPercentMessage.style.color = "red";
     }
 }
 
