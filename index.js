@@ -51,6 +51,14 @@ const transferWalletSourceSelect = document.getElementById("transfer-wallet-sour
 const transferWalletDestinationSelect = document.getElementById("transfer-wallet-destination-select");
 const transferWalletAmountInput = document.getElementById("transfer-wallet-amount-input");
 
+// set percents
+const openSetPercentsModalBtn = document.getElementById("open-set-percents-modal-btn");
+const setPercentsModal = document.getElementById("set-percents-modal");
+const closeSetPercentsModalBtn = document.getElementById("close-set-percents-modal-btn");
+const setPercentsForm = document.getElementById("set-percents-form");
+const setPercentsFieldset = document.getElementById("set-percents-fieldset");
+const setPercentsInputClassName = "set-percents-input";
+
 // user message
 const userMessage = document.getElementById("user-message");
 let userMessageTimeoutHandle;
@@ -417,7 +425,6 @@ function getWalletElementFromName(walletName) {
             return walletElement
         }
     }
-    console.log(`Wallet ${walletName} not found!`);
     return null
 }
 
@@ -429,8 +436,15 @@ function isValidNumericInput(numberInput) {
     return true
 }
 
+function isValidPercentInput(numberInput) {
+    const number = parseFloat(numberInput)
+    if (isNaN(number) || number < 0 || number > 100) {
+        return false
+    }
+    return true
+}
+
 addToWalletForm.addEventListener("submit", event => {
-    console.log("event submitted");
     const walletElement = getWalletElementFromName(addToWalletSelect.value);
     if (walletElement == null) {
         showNewMessage(`Could not find wallet ${addToWalletSelect.value}.`, "red")
@@ -591,6 +605,107 @@ transferWalletForm.addEventListener("submit", event => {
     clearInputs();
     saveWallets();
     return;
+});
+
+//
+// SET PERCENTS
+//
+
+openSetPercentsModalBtn.addEventListener("click", event => {
+    setPercentsModal.showModal();
+    populateSetPercentsForm();
+});
+
+closeSetPercentsModalBtn.addEventListener("click", () => {
+    setPercentsModal.close();    
+});
+
+function closeSetPercentsModal() {
+    setPercentsModal.close();
+}
+
+setPercentsModal.addEventListener("close", event => {
+    emptyFieldsetForm(setPercentsFieldset);
+});
+
+setPercentsModal.addEventListener("click", event => {
+    const dialogDimensions = setPercentsModal.getBoundingClientRect()
+    if (
+        event.clientX < dialogDimensions.left ||
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
+    ) {
+        setPercentsModal.close()
+    }
+});
+
+function populateSetPercentsForm() {
+    for (walletElement of walletsElement.children) {
+        const walletName = walletElement.children[walletNameIndex].innerHTML;
+        const walletPercent = walletElement.children[walletPercentIndex].innerHTML;
+        const labelElement = createWalletNameLabelElement(walletName);
+        const inputElement = createWalletPercentInputElement(walletName, walletPercent);
+        setPercentsFieldset.appendChild(labelElement);
+        setPercentsFieldset.appendChild(inputElement);
+    }
+    const closeBtn = document.createElement("input")
+    closeBtn.setAttribute("type", "submit");
+    closeBtn.setAttribute("id", "set-percents-btn");
+    closeBtn.setAttribute("value", "Submit");
+    setPercentsFieldset.append(closeBtn);
+}
+
+function createWalletNameLabelElement(walletName) {
+    const label = document.createElement("label");
+    label.setAttribute("for", walletName);
+    label.innerHTML = walletName;
+    return label
+}
+
+function createWalletPercentInputElement(walletName, walletPercent) {
+    const input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", walletName);
+    input.setAttribute("class", setPercentsInputClassName);
+    input.value = walletPercent;
+    return input
+}
+
+function emptyFieldsetForm(fieldsetElement) {
+    let counter = fieldsetElement.childElementCount - 1;
+    while (counter > 0) {
+        fieldsetElement.children[counter].remove();
+        counter--;
+    }
+}
+
+setPercentsForm.addEventListener("submit", event => {
+    const inputs = document.getElementsByClassName(setPercentsInputClassName);
+    
+    // input validation
+    // TODO: change to MAP
+    for (input of inputs) {
+        let walletPercent = input.value;
+        if (walletPercent === "") {
+            input.value = "0";
+            walletPercent = input.value;
+        }
+        if (!isValidPercentInput(walletPercent)) {
+            showNewMessage("Wallet percent must be a valid positive number and at most 100!", "red");
+            return;
+        }
+    }
+
+    for (input of inputs) {
+        const walletName = input.id;
+        const walletPercent = input.value;
+        const walletElement = getWalletElementFromName(walletName)
+        walletElement.children[walletPercentIndex].innerHTML = walletPercent;
+    }
+
+    showNewMessage("Wallet percents successfully set!", "green")
+    saveWallets();
 });
 
 //
