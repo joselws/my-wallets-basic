@@ -191,18 +191,6 @@ closeEditModalBtn.addEventListener("click", () => {
     editWalletModal.close();    
 });
 
-editWalletModal.addEventListener("click", event => {
-    const dialogDimensions = editWalletModal.getBoundingClientRect()
-    if (
-        event.clientX < dialogDimensions.left ||
-        event.clientX > dialogDimensions.right ||
-        event.clientY < dialogDimensions.top ||
-        event.clientY > dialogDimensions.bottom
-    ) {
-        editWalletModal.close()
-    }
-});
-
 editWalletForm.addEventListener("submit", (event) => {
     const walletName = walletNameEditInput.value;
     let walletBalance = walletBalanceEditInput.value;
@@ -409,18 +397,6 @@ addToWalletModal.addEventListener("close", event => {
     emptySelectForm(addToWalletSelect);
 });
 
-addToWalletModal.addEventListener("click", event => {
-    const dialogDimensions = addToWalletModal.getBoundingClientRect()
-    if (
-        event.clientX < dialogDimensions.left ||
-        event.clientX > dialogDimensions.right ||
-        event.clientY < dialogDimensions.top ||
-        event.clientY > dialogDimensions.bottom
-    ) {
-        addToWalletModal.close()
-    }
-});
-
 function getWalletElementFromName(walletName) {
     for (walletElement of walletsElement.children) {
         if (walletElement.children[walletNameIndex].innerHTML === walletName) {
@@ -487,18 +463,6 @@ deductFromWalletModal.addEventListener("close", event => {
     emptySelectForm(deductFromWalletSelect);
 });
 
-deductFromWalletModal.addEventListener("click", event => {
-    const dialogDimensions = deductFromWalletModal.getBoundingClientRect()
-    if (
-        event.clientX < dialogDimensions.left ||
-        event.clientX > dialogDimensions.right ||
-        event.clientY < dialogDimensions.top ||
-        event.clientY > dialogDimensions.bottom
-    ) {
-        deductFromWalletModal.close()
-    }
-});
-
 function deductBalanceFromWallet(walletElement, amount) {
     const balance = Number(walletElement.children[walletBalanceIndex].innerHTML);
     if (balance < amount) {
@@ -555,18 +519,6 @@ closeTransferModalBtn.addEventListener("click", () => {
 transferModal.addEventListener("close", event => {
     emptySelectForm(transferWalletSourceSelect);
     emptySelectForm(transferWalletDestinationSelect);
-});
-
-transferModal.addEventListener("click", event => {
-    const dialogDimensions = transferModal.getBoundingClientRect()
-    if (
-        event.clientX < dialogDimensions.left ||
-        event.clientX > dialogDimensions.right ||
-        event.clientY < dialogDimensions.top ||
-        event.clientY > dialogDimensions.bottom
-    ) {
-        transferModal.close()
-    }
 });
 
 transferWalletForm.addEventListener("submit", event => {
@@ -629,18 +581,6 @@ function closeSetPercentsModal() {
 
 setPercentsModal.addEventListener("close", event => {
     emptyFieldsetForm(setPercentsFieldset);
-});
-
-setPercentsModal.addEventListener("click", event => {
-    const dialogDimensions = setPercentsModal.getBoundingClientRect()
-    if (
-        event.clientX < dialogDimensions.left ||
-        event.clientX > dialogDimensions.right ||
-        event.clientY < dialogDimensions.top ||
-        event.clientY > dialogDimensions.bottom
-    ) {
-        setPercentsModal.close()
-    }
 });
 
 function populateSetPercentsForm() {
@@ -709,8 +649,6 @@ function computeTotalPercent(event) {
 setPercentsForm.addEventListener("submit", event => {
     const inputs = document.getElementsByClassName(setPercentsInputClassName);
     
-    // input validation
-    // TODO: change to MAP
     for (input of inputs) {
         let walletPercent = input.value;
         if (walletPercent === "") {
@@ -738,7 +676,25 @@ setPercentsForm.addEventListener("submit", event => {
 // INITIAL LOAD
 //
 
+function exitModalClickOutside(modalElement) {
+    modalElement.addEventListener("click", event => {
+        const dialogDimensions = modalElement.getBoundingClientRect()
+        if (
+            event.clientX < dialogDimensions.left ||
+            event.clientX > dialogDimensions.right ||
+            event.clientY < dialogDimensions.top ||
+            event.clientY > dialogDimensions.bottom
+        ) {
+            modalElement.close()
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    const modalElements = [editWalletModal, addToWalletModal, deductFromWalletModal, transferModal, setPercentsModal]
+    for (const modalElement of modalElements) {
+        exitModalClickOutside(modalElement);
+    }
     loadWallets();
     computeTotalBalance();
 })
