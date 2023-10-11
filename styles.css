@@ -1,3 +1,10 @@
+:root {
+    --primary-color: #7A067A;
+    --secondary-color: #2D2D2D;
+    --background-color: #FFF;
+    --total-balance-color: #AEFFCB;
+}
+
 h1 {
     color: blue;
     text-align: center;
