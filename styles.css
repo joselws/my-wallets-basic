@@ -77,6 +77,16 @@ main {
     height: 28px;
 }
 
+[type="submit"], .btn {
+    border-radius: 0px 25px 24px 25px;
+    background: var(--secondary-color);
+    color: var(--background-color);
+    font-family: "Century Gothic";
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
 /* Create wallet */
 
 .form-section-wrapper {
