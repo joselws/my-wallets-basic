@@ -26,13 +26,19 @@
                 <h2 class="section-marker-title">Add a Wallet</h2>
                 <div class="color-line"></div>
             </div>
-            <form id="create-wallet-form">
-                <label for="wallet-name-input">Wallet name</label>
-                <input type="text" id="wallet-name-input" />
-                <label for="wallet-balance-input">Wallet balance</label>
-                <input type="text" id="wallet-balance-input" />
-                <label for="wallet-percent-input">Wallet percent</label>
-                <input type="text" id="wallet-percent-input" />
+            <form class="form-section-form" id="create-wallet-form">
+                <div class="input-wrapper">
+                    <label for="wallet-name-input">Wallet name</label>
+                    <input type="text" id="wallet-name-input" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="wallet-balance-input">Wallet balance</label>
+                    <input type="text" id="wallet-balance-input" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="wallet-percent-input">Wallet percent</label>
+                    <input type="text" id="wallet-percent-input" />
+                </div>
                 <input type="submit" id="create-wallet-btn" value="Create" />
             </form>
         </section>
@@ -43,9 +49,11 @@
                 <h2 class="section-marker-title">Deposit money across Wallets!</h2>
                 <div class="color-line"></div>
             </div>
-            <form id="deposit-form">
-                <label for="deposit-input">Deposit</label>
-                <input type="text" id="deposit-input" />
+            <form class="form-section-form" id="deposit-form">
+                <div class="input-wrapper">
+                    <label for="deposit-input">Deposit</label>
+                    <input type="text" id="deposit-input" />
+                </div>
                 <input type="submit" id="deposit-btn" value="Deposit" />
             </form>
         </section>
@@ -57,28 +65,28 @@
         <section id="wallets-options-buttons-wrapper">
             <!-- Add money feature -->
             <div class="wallet-option-card">
-                <img src="" alt="" />
+                <img src="" alt="add money to wallet image" />
                 <p class="wallet-option-description">Add money to a wallet</p>
                 <button class="btn" id="open-add-modal-btn">Add</button>
             </div>
 
             <!-- Deduct feature -->
             <div class="wallet-option-card">
-                <img src="" alt="" />
-                <p class="wallet-option-description">Deduct money to a wallet</p>
+                <img src="" alt="deduct money to wallet image" />
+                <p class="wallet-option-description">Deduct money from wallet</p>
                 <button class="btn" id="open-deduct-modal-btn">Deduct</button>
             </div>
 
             <!-- Transfer feature -->
             <div class="wallet-option-card">
-                <img src="" alt="" />
+                <img src="" alt="move money across wallets image" />
                 <p class="wallet-option-description">Transfer money across wallets</p>
                 <button class="btn" id="open-transfer-modal-btn">Transfer</button>
             </div>
 
             <!-- Set percents -->
             <div class="wallet-option-card">
-                <img src="" alt="" />
+                <img src="" alt="set wallets percents image" />
                 <p class="wallet-option-description">Set wallets percents</p>
                 <button class="btn" id="open-set-percents-modal-btn">Set</button>
             </div>

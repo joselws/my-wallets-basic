@@ -80,7 +80,8 @@ main {
 [type="text"] {
     border: 1.6px solid var(--secondary-color);
     border-radius: 0px 31px 31px 31px;
-    height: 28px;
+    height: 34px;
+    min-width: 200px;
 }
 
 [type="submit"], .btn {
@@ -91,10 +92,13 @@ main {
     padding: 5px 10px;
     cursor: pointer;
     font-weight: normal;
+    height: 40px;
+    border: none;
+    width: 90px;
 }
 
-label {
-    font-size: 22px;
+[type="submit"] {
+    align-self: flex-end;
 }
 
 /* Create wallet */
@@ -108,6 +112,20 @@ label {
     display: flex;
     align-content: space-around;
     width: 100%;
+}
+
+.form-section-form {
+    display: flex;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px;
+}
+
+label {
+    font-size: 22px;
 }
 
 .section-marker-title {
@@ -127,7 +145,33 @@ label {
     margin-left: 20px;
 }
 
-/*  */
+/* Wallet option buttons */
+
+#wallets-options-buttons-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.wallet-option-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.wallet-option-description {
+    text-align: center;
+    margin: 20px auto;
+    width: 170px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    margin: auto;
+}
+
+/* wallets */
 
 #wallets {
     display: flex;
@@ -151,3 +195,5 @@ label {
 .wallet-name, .wallet-balance, .wallet-delete-btn, .wallet-percent {
     text-align: center;
 }
+
+/* footer */
