@@ -8,7 +8,13 @@
 
 @font-face {
     font-family: 'Century Gothic';
-    src: url('./fonts/Century\ Gothic.ttf') format('truetype');
+    src: url('./fonts/GOTHIC.TTF') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('./fonts/GOTHICB0.TTF') format('truetype');
+    font-weight: bold;
 }
 
 body {
@@ -84,7 +90,11 @@ main {
     font-family: "Century Gothic";
     padding: 5px 10px;
     cursor: pointer;
-    font-weight: 400;
+    font-weight: normal;
+}
+
+label {
+    font-size: 22px;
 }
 
 /* Create wallet */
@@ -103,6 +113,9 @@ main {
 .section-marker-title {
     white-space: nowrap;
     display: inline-block;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 32px;
 }
 
 .color-line {
