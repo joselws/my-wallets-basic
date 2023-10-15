@@ -142,20 +142,20 @@ function createNewWallet(wallet) {
     walletPercentElement.innerHTML = wallet.percent
     
     const walletEditBtn = document.createElement("button");
-    walletEditBtn.setAttribute("class", "wallet-edit-btn");
+    walletEditBtn.setAttribute("class", "wallet-edit-btn wallet-btn");
     walletEditBtn.innerHTML = "Edit"
     walletEditBtn.addEventListener("click", editWallet);
 
     const walletDeleteBtn = document.createElement("button");
-    walletDeleteBtn.setAttribute("class", "wallet-delete-btn");
+    walletDeleteBtn.setAttribute("class", "wallet-delete-btn wallet-btn");
     walletDeleteBtn.innerHTML = "Delete"
     walletDeleteBtn.addEventListener("click", deleteWallet);
 
     walletElement.appendChild(walletNameElement);
     walletElement.appendChild(walletBalanceElement);
     walletElement.appendChild(walletPercentElement);
-    walletElement.appendChild(walletDeleteBtn);
     walletElement.appendChild(walletEditBtn);
+    walletElement.appendChild(walletDeleteBtn);
 
     walletsElement.appendChild(walletElement);
 
