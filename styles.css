@@ -201,6 +201,14 @@ label {
     text-align: center;
 }
 
+.wallet-balance::after {
+    content: "$";
+}
+
+.wallet-percent::after {
+    content: "%";
+}
+
 .wallet-name {
     margin-bottom: 28px;
 }
