@@ -95,7 +95,10 @@
         <!-- wallet cards & info -->
         <section id="wallets-info-section">
             <div id="wallets"></div>
-            <p>Total balance: <span id="total-balance"></span>$</p>
+            <div id="total-balance-wrapper">
+                <div id="total-balance-icon"></div>
+                <p id="total-balance-text">Total Balance: <span id="total-balance"></span>$</p>
+            </div>
         </section>
     </main>
 
@@ -168,7 +171,7 @@
                 <select name="transfer-wallet-destination-select" id="transfer-wallet-destination-select" required></select>
                 <label for="transfer-wallet-amount-input">Amount of money to move</label>
                 <input type="text" id="transfer-wallet-amount-input" />
-                <input type="submit" id="transfer-wallet-form-submit-btn" value="Transfer money" />
+                <input type="submit" id="transfer-wallet-form-submit-btn" value="Transfer" />
             </fieldset>
         </form>
     </dialog>
