@@ -11,7 +11,7 @@
     <!-- content -->
     <header>
         <div id="header-title-container">
-            <p id="logo">W</p>
+            <img id="logo" src="images/logo.svg" alt="My wallets logo"/>
             <h1>My Wallets</h1>
         </div>
         <div id="header-icons-container">
@@ -24,7 +24,7 @@
         <section class="form-section-wrapper">
             <div class="form-section-marker">
                 <h2 class="section-marker-title">Add a Wallet</h2>
-                <div class="color-line"></div>
+                <div class="color-line" id="line-1"></div>
             </div>
             <form class="form-section-form" id="create-wallet-form">
                 <div class="input-wrapper">
@@ -47,7 +47,7 @@
         <section class="form-section-wrapper">
             <div class="form-section-marker">
                 <h2 class="section-marker-title">Deposit money across Wallets!</h2>
-                <div class="color-line"></div>
+                <div class="color-line" id="line-2"></div>
             </div>
             <form class="form-section-form" id="deposit-form">
                 <div class="input-wrapper">
@@ -65,28 +65,28 @@
         <section id="wallets-options-buttons-wrapper">
             <!-- Add money feature -->
             <div class="wallet-option-card">
-                <img src="" alt="add money to wallet image" />
+                <img class="wallet-option-image" src="images/add.svg" alt="add money to wallet image" />
                 <p class="wallet-option-description">Add money to a wallet</p>
                 <button class="btn" id="open-add-modal-btn">Add</button>
             </div>
 
             <!-- Deduct feature -->
             <div class="wallet-option-card">
-                <img src="" alt="deduct money to wallet image" />
+                <img class="wallet-option-image" src="images/deduct.svg" alt="deduct money to wallet image" />
                 <p class="wallet-option-description">Deduct money from wallet</p>
                 <button class="btn" id="open-deduct-modal-btn">Deduct</button>
             </div>
 
             <!-- Transfer feature -->
             <div class="wallet-option-card">
-                <img src="" alt="move money across wallets image" />
+                <img class="wallet-option-image" src="images/transfer.svg" alt="move money across wallets image" />
                 <p class="wallet-option-description">Transfer money across wallets</p>
                 <button class="btn" id="open-transfer-modal-btn">Transfer</button>
             </div>
 
             <!-- Set percents -->
             <div class="wallet-option-card">
-                <img src="" alt="set wallets percents image" />
+                <img class="wallet-option-image" src="images/percent.svg" alt="set wallets percents image" />
                 <p class="wallet-option-description">Set wallets percents</p>
                 <button class="btn" id="open-set-percents-modal-btn">Set</button>
             </div>
@@ -139,7 +139,7 @@
                 <select name="add-to-wallet-select" id="add-to-wallet-select" required></select>
                 <label for="add-to-wallet-amount-input">Amount to add</label>
                 <input type="text" id="add-to-wallet-amount-input" />
-                <input type="submit" id="add-to-wallet-form-submit-btn" value="Add to wallet" />
+                <input type="submit" id="add-to-wallet-form-submit-btn" value="Add" />
             </fieldset>
         </form>
     </dialog>
@@ -155,7 +155,7 @@
                 <select name="deduct-from-wallet-select" id="deduct-from-wallet-select" required></select>
                 <label for="deduct-from-wallet-amount-input">Amount to deduct</label>
                 <input type="text" id="deduct-from-wallet-amount-input" />
-                <input type="submit" id="deduct-from-wallet-form-submit-btn" value="Deduct from wallet" />
+                <input type="submit" id="deduct-from-wallet-form-submit-btn" value="Deduct" />
             </fieldset>
         </form>
     </dialog>
