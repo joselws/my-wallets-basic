@@ -626,7 +626,7 @@ function createWalletPercentInputElement(walletName, walletPercent) {
 
 function emptyFieldsetForm(fieldsetElement) {
     let counter = fieldsetElement.childElementCount - 1;
-    while (counter > 0) {
+    while (counter >= 0) {
         fieldsetElement.children[counter].remove();
         counter--;
     }

@@ -337,6 +337,44 @@ footer {
 }
 
 
+/* Modals */
+
+dialog::backdrop {
+    background-color:rgba(0, 0, 0, 0.25);
+}
+
+dialog {
+    border-radius: 0px 50px 50px 50px;
+    border: 4px solid var(--primary-color);
+}
+
+.wallet-option-modal {
+    display: flex;
+    flex-direction: column;
+    /* margin: 25vh auto; */
+}
+
+.modal-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 30px;
+}
+
+.modal-header {
+    font-family: "Century Gothic";
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.close-modal-btn {
+    font-size: 22px;
+}
+
+#set-percents-fieldset {
+    border: none;
+}
+
 /* Mobile view (responsive) */
 
 @media (orientation: portrait) {
