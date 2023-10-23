@@ -37,12 +37,14 @@ header {
 #header-title-container {
     flex: 1;
     display: flex;
+    align-items: center;
     width: 50%;
 }
 
 #logo {
     align-self: center;
     justify-self: center;
+    height: 40%;
 }
 
 #header-icons-container {
@@ -80,7 +82,10 @@ main {
     border: 1.6px solid var(--secondary-color);
     border-radius: 0px 31px 31px 31px;
     height: 34px;
-    min-width: 200px;
+    min-width: 180px;
+    padding-left: 20px;
+    font-family: "Century Gothic";
+    font-size: 16px;
 }
 
 [type="submit"], .btn {
@@ -105,7 +110,7 @@ main {
 .form-section-wrapper {
     display: flex;
     flex-direction: column;
-    margin: 0px 5%;
+    margin: 20px 5%;
 }
 
 .form-section-marker {
@@ -117,12 +122,13 @@ main {
 .form-section-form {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-end;
 }
 
 .input-wrapper {
     display: flex;
     flex-direction: column;
-    margin: 0px 20px;
+    margin: 0px 30px 20px 0px;
 }
 
 label {
@@ -140,7 +146,7 @@ label {
 .color-line {
     border-radius: 7px 0px 0px 0px;
     background: var(--primary-color);
-    height: 8px;
+    height: 5px;
     align-self: center;
     flex: 1;
     margin-left: 20px;
@@ -177,6 +183,7 @@ label {
 
 .btn {
     margin: auto;
+    margin-top: 10px;
 }
 
 /* wallets */
@@ -342,15 +349,20 @@ footer {
         height: 60px;
     }
 
+    .form-section-wrapper {
+        margin-top: 0px;
+    }
+
     .form-section-marker {
         flex-direction: column;
         text-align: center;
+        margin-bottom: 20px;
     }
     
     .color-line {
         align-self: end;
         width: 70%;
-        flex: 1 1 4px;
+        flex: 1 1 2.5px;
     }
 
     #line-2 {
@@ -370,7 +382,7 @@ footer {
 
     .section-marker-title {
         font-size: 18px;
-        margin-bottom: 0px;
+        margin-bottom: 5px;
     }
 
     .wallet {
@@ -379,5 +391,37 @@ footer {
 
     label {
         font-size: 14px;
+    }
+
+    [type="text"] {
+        font-family: "Century Gothic";
+        font-size: 12px;
+    }
+
+    .wallet-option-card {
+        width: 100px;
+        height: 90px;
+        box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.18);
+        border-radius: 18px;
+        padding-top: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .wallet-option-description {
+        font-size: 10px;
+        display: inline;
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .wallet-option-image {
+        height: 45px;
+    }
+
+    .wallet-option-btn {
+        display: none;
+        height: 100%;
+        width: 100%;
     }
 }
