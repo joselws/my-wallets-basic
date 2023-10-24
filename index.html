@@ -141,11 +141,17 @@
                 <p id="close-add-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="add-to-wallet-form" method="dialog">
-                <label for="add-to-wallet-select">Select your wallet</label>
-                <select name="add-to-wallet-select" id="add-to-wallet-select" required></select>
-                <label for="add-to-wallet-amount-input">Amount to add</label>
-                <input type="text" id="add-to-wallet-amount-input" />
-                <input type="submit" id="add-to-wallet-form-submit-btn" value="Add" />
+                <div class="form-section-marker">
+                    <label for="add-to-wallet-select">Select your wallet</label>
+                    <select name="add-to-wallet-select" id="add-to-wallet-select" required></select>
+                </div>
+                <div class="form-section-marker">
+                    <label for="add-to-wallet-amount-input">Amount to add</label>
+                    <input type="text" id="add-to-wallet-amount-input" />
+                </div>
+                <div class="form-section-marker">
+                    <input class="modal-btn" type="submit" id="add-to-wallet-form-submit-btn" value="Add" />
+                </div>
             </form>
         </div>
     </dialog>
@@ -158,11 +164,17 @@
                 <p id="close-deduct-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="deduct-from-wallet-form" method="dialog">
-                <label for="deduct-from-wallet-select">Select your wallet</label>
-                <select name="deduct-from-wallet-select" id="deduct-from-wallet-select" required></select>
-                <label for="deduct-from-wallet-amount-input">Amount to deduct</label>
-                <input type="text" id="deduct-from-wallet-amount-input" />
-                <input type="submit" id="deduct-from-wallet-form-submit-btn" value="Deduct" />
+                <div class="form-section-marker">
+                    <label for="deduct-from-wallet-select">Select your wallet</label>
+                    <select name="deduct-from-wallet-select" id="deduct-from-wallet-select" required></select>
+                </div>
+                <div class="form-section-marker">
+                    <label for="deduct-from-wallet-amount-input">Amount to deduct</label>
+                    <input type="text" id="deduct-from-wallet-amount-input" />
+                </div>
+                <div class="form-section-marker">
+                    <input class="modal-btn" type="submit" id="deduct-from-wallet-form-submit-btn" value="Deduct" />
+                </div>
             </form>
         </div>
     </dialog>
@@ -175,13 +187,21 @@
                 <p id="close-transfer-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="transfer-wallet-form" method="dialog">
-                <label for="transfer-wallet-source-select">Select your source wallet</label>
-                <select name="transfer-wallet-source-select" id="transfer-wallet-source-select" required></select>
-                <label for="transfer-wallet-destination-select">Select your destination wallet</label>
-                <select name="transfer-wallet-destination-select" id="transfer-wallet-destination-select" required></select>
-                <label for="transfer-wallet-amount-input">Amount of money to move</label>
-                <input type="text" id="transfer-wallet-amount-input" />
-                <input type="submit" id="transfer-wallet-form-submit-btn" value="Transfer" />
+                <div class="form-section-marker">
+                    <label for="transfer-wallet-source-select">Select your source wallet</label>
+                    <select name="transfer-wallet-source-select" id="transfer-wallet-source-select" required></select>
+                </div>
+                <div class="form-section-marker">
+                    <label for="transfer-wallet-destination-select">Select your destination wallet</label>
+                    <select name="transfer-wallet-destination-select" id="transfer-wallet-destination-select" required></select>
+                </div>
+                <div class="form-section-marker">
+                    <label for="transfer-wallet-amount-input">Amount of money to move</label>
+                    <input type="text" id="transfer-wallet-amount-input" />
+                </div>
+                <div class="form-section-marker">
+                    <input class="modal-btn" type="submit" id="transfer-wallet-form-submit-btn" value="Transfer" />
+                </div>
             </form>
         </div>
     </dialog>
@@ -208,13 +228,21 @@
                 <p id="close-edit-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="edit-wallet-form" method="dialog">
-                <label for="wallet-name-edit-input">Wallet name</label>
-                <input autofocus type="text" id="wallet-name-edit-input" />
-                <label for="wallet-balance-edit-input">Wallet balance</label>
-                <input type="text" id="wallet-balance-edit-input" />
-                <label for="wallet-percent-edit-input">Wallet percent</label>
-                <input type="text" id="wallet-percent-edit-input" />
-                <input type="submit" id="edit-wallet-btn" value="Submit" />
+                <div class="form-section-marker">
+                    <label for="wallet-name-edit-input">Wallet name</label>
+                    <input autofocus type="text" id="wallet-name-edit-input" />
+                </div>
+                <div class="form-section-marker">
+                    <label for="wallet-balance-edit-input">Wallet balance</label>
+                    <input type="text" id="wallet-balance-edit-input" />
+                </div>
+                <div class="form-section-marker">
+                    <label for="wallet-percent-edit-input">Wallet percent</label>
+                    <input type="text" id="wallet-percent-edit-input" />
+                </div>
+                <div class="form-section-marker">
+                    <input class="modal-btn" type="submit" id="edit-wallet-btn" value="Submit" />
+                </div>
             </form>
         </div>
     </dialog>

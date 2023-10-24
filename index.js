@@ -445,6 +445,7 @@ addToWalletForm.addEventListener("submit", event => {
     computeTotalBalance();
     clearInputs();
     saveWallets();
+    showNewMessage(`Amount of ${amount} added successfully`, "green")
     return;
 });
 
@@ -604,6 +605,7 @@ function populateSetPercentsForm() {
     closeBtn.setAttribute("type", "submit");
     closeBtn.setAttribute("id", "set-percents-btn");
     closeBtn.setAttribute("value", "Submit");
+    closeBtn.setAttribute("class", "modal-btn");
     setPercentsFieldset.append(closeBtn);
 }
 
