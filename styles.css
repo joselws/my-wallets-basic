@@ -352,7 +352,11 @@ dialog {
 }
 
 dialog[open] {
-    animation: modalAnimation 0.5s;
+    animation: modalAnimation 0.4s;
+}
+
+dialog:focus {
+    outline: none;
 }
 
 @keyframes modalAnimation {
@@ -411,6 +415,11 @@ dialog div {
 
 .modal-btn {
     align-self: center;
+}
+
+#total-percent-message {
+    text-align: center;
+    font-family: "Century Gothic";
 }
 
 /* Mobile view (responsive) */
@@ -499,5 +508,10 @@ dialog div {
         display: none;
         height: 100%;
         width: 100%;
+    }
+
+    dialog {
+        width: 70%;
+        height: 60%;
     }
 }
