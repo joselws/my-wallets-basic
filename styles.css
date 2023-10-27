@@ -55,6 +55,8 @@ header {
 }
 
 #world-icon {
+    display:flex;
+    align-content: center;
     max-width: 100%;
     height: 40%;
     align-self: center;
@@ -436,6 +438,11 @@ dialog div {
 
     header {
         height: 60px;
+    }
+
+    #world-icon {
+        height: 50%;
+        width: 15px;
     }
 
     .form-section-wrapper {
