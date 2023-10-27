@@ -105,6 +105,10 @@ main {
     align-self: flex-end;
 }
 
+#user-message {
+    text-align: center;
+}
+
 /* Create wallet */
 
 .form-section-wrapper {
