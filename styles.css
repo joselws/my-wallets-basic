@@ -443,6 +443,7 @@ dialog div {
     #world-icon {
         height: 50%;
         width: 15px;
+        padding-right: 5%;
     }
 
     .form-section-wrapper {
