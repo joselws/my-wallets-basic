@@ -142,20 +142,20 @@ function createNewWallet(wallet) {
     walletPercentElement.innerHTML = wallet.percent
     
     const walletEditBtn = document.createElement("button");
-    walletEditBtn.setAttribute("class", "wallet-edit-btn");
+    walletEditBtn.setAttribute("class", "wallet-edit-btn wallet-btn");
     walletEditBtn.innerHTML = "Edit"
     walletEditBtn.addEventListener("click", editWallet);
 
     const walletDeleteBtn = document.createElement("button");
-    walletDeleteBtn.setAttribute("class", "wallet-delete-btn");
+    walletDeleteBtn.setAttribute("class", "wallet-delete-btn wallet-btn");
     walletDeleteBtn.innerHTML = "Delete"
     walletDeleteBtn.addEventListener("click", deleteWallet);
 
     walletElement.appendChild(walletNameElement);
     walletElement.appendChild(walletBalanceElement);
     walletElement.appendChild(walletPercentElement);
-    walletElement.appendChild(walletDeleteBtn);
     walletElement.appendChild(walletEditBtn);
+    walletElement.appendChild(walletDeleteBtn);
 
     walletsElement.appendChild(walletElement);
 
@@ -384,10 +384,12 @@ function emptySelectForm(selectElement) {
     }
 }
 
-openAddModalBtn.addEventListener("click", () => {
+function openAddModalEventListener() {
     populateSelectFormWithNames(addToWalletSelect, getWalletNames());
     addToWalletModal.showModal();    
-});
+}
+
+openAddModalBtn.addEventListener("click", openAddModalEventListener);
 
 closeAddModalBtn.addEventListener("click", () => {
     addToWalletModal.close();    
@@ -443,6 +445,7 @@ addToWalletForm.addEventListener("submit", event => {
     computeTotalBalance();
     clearInputs();
     saveWallets();
+    showNewMessage(`Amount of ${amount} added successfully`, "green")
     return;
 });
 
@@ -450,10 +453,12 @@ addToWalletForm.addEventListener("submit", event => {
 // DEDUCT
 //
 
-openDeductModalBtn.addEventListener("click", () => {
+function openDeductModalEventListener() {
     populateSelectFormWithNames(deductFromWalletSelect, getWalletNames());
     deductFromWalletModal.showModal();    
-});
+}
+
+openDeductModalBtn.addEventListener("click", openDeductModalEventListener);
 
 closeDeductModalBtn.addEventListener("click", () => {
     deductFromWalletModal.close();    
@@ -505,12 +510,14 @@ deductFromWalletForm.addEventListener("submit", event => {
 // TRANSFER
 //
 
-openTransferModalBtn.addEventListener("click", () => {
+function openTransferModalEventListener() {
     const walletNames = getWalletNames();
     populateSelectFormWithNames(transferWalletSourceSelect, walletNames);
     populateSelectFormWithNames(transferWalletDestinationSelect, walletNames);
     transferModal.showModal();    
-});
+}
+
+openTransferModalBtn.addEventListener("click", openTransferModalEventListener);
 
 closeTransferModalBtn.addEventListener("click", () => {
     transferModal.close();    
@@ -565,11 +572,13 @@ transferWalletForm.addEventListener("submit", event => {
 // SET PERCENTS
 //
 
-openSetPercentsModalBtn.addEventListener("click", event => {
+function openSetPercentsModalEventListener() {
     setPercentsModal.showModal();
     populateSetPercentsForm();
     computeTotalPercent();
-});
+}
+
+openSetPercentsModalBtn.addEventListener("click", openSetPercentsModalEventListener);
 
 closeSetPercentsModalBtn.addEventListener("click", () => {
     setPercentsModal.close();    
@@ -596,6 +605,7 @@ function populateSetPercentsForm() {
     closeBtn.setAttribute("type", "submit");
     closeBtn.setAttribute("id", "set-percents-btn");
     closeBtn.setAttribute("value", "Submit");
+    closeBtn.setAttribute("class", "modal-btn");
     setPercentsFieldset.append(closeBtn);
 }
 
@@ -618,7 +628,7 @@ function createWalletPercentInputElement(walletName, walletPercent) {
 
 function emptyFieldsetForm(fieldsetElement) {
     let counter = fieldsetElement.childElementCount - 1;
-    while (counter > 0) {
+    while (counter >= 0) {
         fieldsetElement.children[counter].remove();
         counter--;
     }
@@ -676,6 +686,13 @@ setPercentsForm.addEventListener("submit", event => {
 // INITIAL LOAD
 //
 
+const hasOptionWalletClickEventListener = {
+    add: false,
+    deduct: false,
+    transfer: false,
+    percents: false,
+}
+
 function exitModalClickOutside(modalElement) {
     modalElement.addEventListener("click", event => {
         const dialogDimensions = modalElement.getBoundingClientRect()
@@ -690,6 +707,30 @@ function exitModalClickOutside(modalElement) {
     });
 }
 
+window.addEventListener("resize", () => {
+    if (isPortraitMode() && !hasOptionWalletClickEventListener["add"]) {
+        attachOpenModalWalletOptions();
+    } else if (!isPortraitMode() && hasOptionWalletClickEventListener["add"]) {
+        detachOpenModalWalletOptions();
+    }
+});
+
+function hasEventListener(element, eventType) {
+    let eventListeners = getEventListeners(element);
+    if (eventListeners[eventType] == null) {
+        return true;
+    }
+    return false;
+}
+
+function hasClickEvent() {
+    const options = document.getElementsByClassName("wallet-option-card");
+    if (options.length === 0) {
+        return false;
+    }
+    return hasEventListener(options[0], "click")
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const modalElements = [editWalletModal, addToWalletModal, deductFromWalletModal, transferModal, setPercentsModal]
     for (const modalElement of modalElements) {
@@ -697,4 +738,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     loadWallets();
     computeTotalBalance();
+    if (isPortraitMode()) {
+        attachOpenModalWalletOptions();
+    }
 })
+
+function isPortraitMode() {
+    return window.innerHeight > window.innerWidth;
+}
+
+function attachOpenModalWalletOptions() {
+    const walletCards = document.getElementsByClassName("wallet-option-card")
+    for (card of walletCards) {
+        const walletOptionType = card.getAttribute("data-option");
+        hasOptionWalletClickEventListener[walletOptionType] = true;
+        switch (walletOptionType) {
+            case "add":
+                card.addEventListener("click", openAddModalEventListener);
+                break;
+            case "deduct":
+                card.addEventListener("click", openDeductModalEventListener);
+                break;
+            case "transfer":
+                card.addEventListener("click", openTransferModalEventListener);
+                break;
+            case "percents":
+                card.addEventListener("click", openSetPercentsModalEventListener);
+                break;
+        }
+    }
+}
+
+function detachOpenModalWalletOptions() {
+    const walletCards = document.getElementsByClassName("wallet-option-card")
+    for (card of walletCards) {
+        const walletOptionType = card.getAttribute("data-option");
+        hasOptionWalletClickEventListener[walletOptionType] = false;
+        switch (walletOptionType) {
+            case "add":
+                card.removeEventListener("click", openAddModalEventListener);
+                break;
+            case "deduct":
+                card.removeEventListener("click", openDeductModalEventListener);
+                break;
+            case "transfer":
+                card.removeEventListener("click", openTransferModalEventListener);
+                break;
+            case "percents":
+                card.removeEventListener("click", openSetPercentsModalEventListener);
+                break;
+        }
+    }
+}

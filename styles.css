@@ -1,3 +1,4 @@
+/* Configuration */
 :root {
     --primary-color: #7A067A;
     --secondary-color: #2D2D2D;
@@ -5,16 +6,209 @@
     --total-balance-color: #AEFFCB;
 }
 
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('./fonts/GOTHIC.TTF') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('./fonts/GOTHICB0.TTF') format('truetype');
+    font-weight: bold;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+}
+
+
+/* header */
+
+header {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+    max-height: 120px;
+    padding: 0px 3% 0px 5%;
+}
+
+#header-title-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+#logo {
+    align-self: center;
+    justify-self: center;
+    height: 40%;
+}
+
+#header-icons-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+#world-icon {
+    max-width: 100%;
+    height: 40%;
+    align-self: center;
+}
+
 h1 {
-    color: blue;
     text-align: center;
-    border: 2px solid black;
+    color: var(--primary-color);
+    margin-left: 5%;
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 44px;
+}
+
+/*** Main content ***/
+
+main {
+    display: flex;
+    flex-direction: column;
+    font-family: "Century Gothic";
+}
+
+/* form text input */
+[type="text"] {
+    border: 1.6px solid var(--secondary-color);
+    border-radius: 0px 31px 31px 31px;
+    height: 34px;
+    min-width: 180px;
+    padding-left: 20px;
+    font-family: "Century Gothic";
+    font-size: 16px;
+}
+
+[type="submit"], .btn {
+    border-radius: 0px 25px 24px 25px;
+    background: var(--secondary-color);
+    color: var(--background-color);
+    font-family: "Century Gothic";
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: normal;
+    height: 40px;
+    border: none;
+    width: 90px;
+}
+
+[type="submit"] {
+    align-self: flex-end;
+}
+
+#user-message {
+    text-align: center;
+}
+
+/* Create wallet */
+
+.form-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 5%;
+}
+
+.form-section-marker {
+    display: flex;
+    align-content: space-around;
+    width: 100%;
+}
+
+.form-section-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 30px 20px 0px;
+}
+
+label {
+    font-size: 22px;
+}
+
+.section-marker-title {
+    white-space: nowrap;
+    display: inline-block;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 32px;
+}
+
+.color-line {
+    border-radius: 7px 0px 0px 0px;
+    background: var(--primary-color);
+    height: 5px;
+    align-self: center;
+    flex: 1;
+    margin-left: 20px;
+}
+
+/* Wallet option buttons */
+
+#wallets-options-buttons-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 0px 5%;
+}
+
+.wallet-option-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.wallet-option-image {
+    height: 70px;
+    width: auto;
+}
+
+.wallet-option-description {
+    text-align: center;
+    margin: 20px auto;
+    width: 170px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    margin: auto;
+    margin-top: 10px;
+}
+
+/* wallets */
+
+#wallets-wrapper {
+    position: relative;
+    bottom: 50px;
+}
+
+#wallets-info-section {
+    background-color: var(--primary-color);
+    border-radius: 80px 80px 0px 0px;
+    margin-top: 100px;
 }
 
 #wallets {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
+    margin: 0px 5%;
 }
 
 .close-modal-btn:hover, .close-modal-btn:focus {
@@ -22,14 +216,306 @@ h1 {
 }
 
 .wallet {
-    border: 1px solid green;
     padding: 10px;
+    width: 150px;
     margin: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 16px 16px 0px 16px;
+    background: #FFF;
+    box-shadow: 0px -7px 50px 0px rgba(0, 0, 0, 0.16);
 }
 
-.wallet-name, .wallet-balance, .wallet-delete-btn, .wallet-percent {
+.wallet-name, .wallet-balance, .wallet-percent {
     text-align: center;
+}
+
+.wallet-balance::after {
+    content: "$";
+}
+
+.wallet-percent::after {
+    content: "%";
+}
+
+.wallet-name {
+    margin-bottom: 28px;
+}
+
+.wallet-balance {
+    margin: 0px auto;
+}
+
+.wallet-percent {
+    margin-top: 6px;
+    margin-bottom: 15px;
+}
+
+.wallet-btn {
+    border-radius: 11px;
+    background: var(--secondary-color);
+    border: none;
+    color: var(--background-color);
+    font-family: "Century Gothic";
+    width: 60%;
+    margin: 5px auto;
+    cursor: pointer;
+}
+
+.wallet-delete-btn {
+    margin-bottom: 14px;
+}
+
+#total-balance-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+}
+
+#total-balance-text {
+    color: var(--background-color);
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#total-balance-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: var(--total-balance-color);
+    border-radius: 7px 7px 0px 6px;
+    margin-right: 10px;
+}
+
+
+/* footer */
+
+footer {
+    display: flex;
+    flex-direction: row;
+    background: var(--secondary-color);
+    color: var(--background-color);
+    min-height: 120px;
+}
+
+#social-media {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-media-link {
+    margin: auto 14px;
+}
+
+.social-media-image {
+    height: 26px;
+    margin: auto;
+}
+
+#credits {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.credit-paragraph {
+    margin: 1px auto;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#year-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Modals */
+
+dialog::backdrop {
+    background-color:rgba(0, 0, 0, 0.25);
+}
+
+dialog {
+    border-radius: 0px 50px 50px 50px;
+    border: none;
+    box-shadow: 0px -7px 50px 0px rgba(0, 0, 0, 0.16);
+    width: 50%;
+    height: 50%;
+}
+
+dialog[open] {
+    animation: modalAnimation 0.4s;
+}
+
+dialog:focus {
+    outline: none;
+}
+
+@keyframes modalAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+.wallet-option-modal {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 30px;
+}
+
+.modal-header {
+    font-family: "Century Gothic";
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.close-modal-btn {
+    font-size: 22px;
+}
+
+#set-percents-fieldset {
+    border: none;
+}
+
+dialog label {
+    font-size: 18px;
+}
+
+dialog form, dialog form fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+dialog div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.modal-btn {
+    align-self: center;
+}
+
+#total-percent-message {
+    text-align: center;
+    font-family: "Century Gothic";
+}
+
+/* Mobile view (responsive) */
+
+@media (orientation: portrait) {
+
+    h1 {
+        font-size: 22px;
+    }
+
+    header {
+        height: 60px;
+    }
+
+    .form-section-wrapper {
+        margin-top: 0px;
+    }
+
+    .form-section-marker {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .color-line {
+        align-self: end;
+        width: 70%;
+        flex: 1 1 2.5px;
+    }
+
+    #line-2 {
+        align-self: flex-start;
+        border-radius: 0px 7px 0px 0px;
+    }
+
+    .form-section-form {
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+    }
+
+    [type="submit"] {
+        align-self: center;
+    }
+
+    .section-marker-title {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .wallet {
+        width: 100px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    [type="text"] {
+        font-family: "Century Gothic";
+        font-size: 12px;
+    }
+
+    .wallet-option-card {
+        width: 100px;
+        height: 90px;
+        box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.18);
+        border-radius: 18px;
+        padding-top: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .wallet-option-description {
+        font-size: 10px;
+        display: inline;
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .wallet-option-image {
+        height: 45px;
+    }
+
+    .wallet-option-btn {
+        display: none;
+        height: 100%;
+        width: 100%;
+    }
+
+    dialog {
+        width: 70%;
+        height: 60%;
+    }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -16,7 +16,7 @@
             <h1>My Wallets</h1>
         </div>
         <div id="header-icons-container">
-            <a id="world-icon" href="index_es.html">
+            <a id="world-icon" href="index.html">
                 <img src="images/world.svg" alt="Change language icon" />
             </a>
         </div>
@@ -26,24 +26,24 @@
         <!-- Create wallet -->
         <section class="form-section-wrapper">
             <div class="form-section-marker">
-                <h2 class="section-marker-title">Add a Wallet!</h2>
+                <h2 class="section-marker-title">Nueva billetera</h2>
                 <div class="color-line" id="line-1"></div>
             </div>
             <form class="form-section-form" id="create-wallet-form">
                 <div class="input-wrapper">
-                    <label for="wallet-name-input">Wallet name</label>
+                    <label for="wallet-name-input">Nombre</label>
                     <input type="text" id="wallet-name-input" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="wallet-balance-input">Wallet balance</label>
+                    <label for="wallet-balance-input">Saldo</label>
                     <input type="text" id="wallet-balance-input" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="wallet-percent-input">Wallet percent</label>
+                    <label for="wallet-percent-input">Porcentaje</label>
                     <input type="text" id="wallet-percent-input" />
                 </div>
                 <div class="input-wrapper">
-                    <input type="submit" id="create-wallet-btn" value="Create" />
+                    <input type="submit" id="create-wallet-btn" value="Crear" />
                 </div>
             </form>
         </section>
@@ -51,16 +51,16 @@
         <!-- Deposit money feature -->
         <section class="form-section-wrapper">
             <div class="form-section-marker">
-                <h2 class="section-marker-title">Deposit money across Wallets!</h2>
+                <h2 class="section-marker-title">¡Deposita dinero a varias billeteras!</h2>
                 <div class="color-line" id="line-2"></div>
             </div>
             <form class="form-section-form" id="deposit-form">
                 <div class="input-wrapper">
-                    <label for="deposit-input">Deposit</label>
+                    <label for="deposit-input">Saldo a depositar</label>
                     <input type="text" id="deposit-input" />
                 </div>
                 <div class="input-wrapper">
-                    <input type="submit" id="deposit-btn" value="Deposit" />
+                    <input type="submit" id="deposit-btn" value="Depositar" />
                 </div>
             </form>
         </section>
@@ -72,30 +72,30 @@
         <section id="wallets-options-buttons-wrapper">
             <!-- Add money feature -->
             <div class="wallet-option-card" data-option="add">
-                <img class="wallet-option-image" src="images/add.svg" alt="add money to wallet image" />
-                <p class="wallet-option-description">Add money to a wallet</p>
-                <button class="btn wallet-option-btn" id="open-add-modal-btn">Add</button>
+                <img class="wallet-option-image" src="images/add.svg" alt="agregar dinero a una billetera imagen" />
+                <p class="wallet-option-description">Añadir monto a billetera</p>
+                <button class="btn wallet-option-btn" id="open-add-modal-btn">Añadir</button>
             </div>
 
             <!-- Deduct feature -->
             <div class="wallet-option-card" data-option="deduct">
-                <img class="wallet-option-image" src="images/deduct.svg" alt="deduct money to wallet image" />
-                <p class="wallet-option-description">Deduct money from wallet</p>
-                <button class="btn wallet-option-btn" id="open-deduct-modal-btn">Deduct</button>
+                <img class="wallet-option-image" src="images/deduct.svg" alt="imagen de Retirar dinero de una billetera" />
+                <p class="wallet-option-description">Retirar monto de billetera</p>
+                <button class="btn wallet-option-btn" id="open-deduct-modal-btn">Retirar</button>
             </div>
 
             <!-- Transfer feature -->
             <div class="wallet-option-card" data-option="transfer">
-                <img class="wallet-option-image" src="images/transfer.svg" alt="move money across wallets image" />
-                <p class="wallet-option-description">Transfer money across wallets</p>
-                <button class="btn wallet-option-btn" id="open-transfer-modal-btn">Transfer</button>
+                <img class="wallet-option-image" src="images/transfer.svg" alt="imagen de mover monto entre billeteras" />
+                <p class="wallet-option-description">Transfiere dinero entre billeteras</p>
+                <button class="btn wallet-option-btn" id="open-transfer-modal-btn">Transferir</button>
             </div>
 
             <!-- Set percents -->
             <div class="wallet-option-card" data-option="percents">
-                <img class="wallet-option-image" src="images/percent.svg" alt="set wallets percents image" />
-                <p class="wallet-option-description">Set wallets percents</p>
-                <button class="btn wallet-option-btn" id="open-set-percents-modal-btn">Set</button>
+                <img class="wallet-option-image" src="images/percent.svg" alt="imagen de ajustar porcentaje de billeteras" />
+                <p class="wallet-option-description">Ajustar porcentaje de billeteras</p>
+                <button class="btn wallet-option-btn" id="open-set-percents-modal-btn">Ajustar</button>
             </div>
         </section>
 
@@ -106,7 +106,7 @@
             </div>
             <div id="total-balance-wrapper">
                 <div id="total-balance-icon"></div>
-                <p id="total-balance-text">Total Balance: <span id="total-balance"></span>$</p>
+                <p id="total-balance-text">Saldo total: <span id="total-balance"></span>$</p>
             </div>
         </section>
     </main>
@@ -124,9 +124,9 @@
             </a>
         </div>
         <div id="credits">
-            <p class="credit-paragraph">Project idea by Jose Wilhelm</p>
-            <p class="credit-paragraph">Developed by Jose Wilhelm</p>
-            <p class="credit-paragraph">Designed by Valeria Wilhelm</p>
+            <p class="credit-paragraph">Idea original de Jose Wilhelm</p>
+            <p class="credit-paragraph">Desarrollado por Jose Wilhelm</p>
+            <p class="credit-paragraph">Diseñado por Valeria Wilhelm</p>
         </div>
         <div id="year-container">
             <p id="year">2023</p>
@@ -139,20 +139,20 @@
     <dialog id="add-to-wallet-modal">
         <div class="wallet-option-modal">
             <div class="modal-title">
-                <h3 class="modal-header">Add money to a wallet</h3>
+                <h3 class="modal-header">Añade monto a billetera</h3>
                 <p id="close-add-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="add-to-wallet-form" method="dialog">
                 <div class="form-section-marker">
-                    <label for="add-to-wallet-select">Select your wallet</label>
+                    <label for="add-to-wallet-select">Selecciona tu billetera</label>
                     <select name="add-to-wallet-select" id="add-to-wallet-select" required></select>
                 </div>
                 <div class="form-section-marker">
-                    <label for="add-to-wallet-amount-input">Amount to add</label>
+                    <label for="add-to-wallet-amount-input">Monto a añadir</label>
                     <input type="text" id="add-to-wallet-amount-input" />
                 </div>
                 <div class="form-section-marker">
-                    <input class="modal-btn" type="submit" id="add-to-wallet-form-submit-btn" value="Add" />
+                    <input class="modal-btn" type="submit" id="add-to-wallet-form-submit-btn" value="Añadir" />
                 </div>
             </form>
         </div>
@@ -162,20 +162,20 @@
     <dialog id="deduct-from-wallet-modal">
         <div class="wallet-option-modal">
             <div class="modal-title">
-                <h3 class="modal-header">Deduct money from a wallet</h3>
+                <h3 class="modal-header">Retirar monto de una billetera</h3>
                 <p id="close-deduct-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="deduct-from-wallet-form" method="dialog">
                 <div class="form-section-marker">
-                    <label for="deduct-from-wallet-select">Select your wallet</label>
+                    <label for="deduct-from-wallet-select">Seleccione su billetera</label>
                     <select name="deduct-from-wallet-select" id="deduct-from-wallet-select" required></select>
                 </div>
                 <div class="form-section-marker">
-                    <label for="deduct-from-wallet-amount-input">Amount to deduct</label>
+                    <label for="deduct-from-wallet-amount-input">Monto a retirar</label>
                     <input type="text" id="deduct-from-wallet-amount-input" />
                 </div>
                 <div class="form-section-marker">
-                    <input class="modal-btn" type="submit" id="deduct-from-wallet-form-submit-btn" value="Deduct" />
+                    <input class="modal-btn" type="submit" id="deduct-from-wallet-form-submit-btn" value="Retirar" />
                 </div>
             </form>
         </div>
@@ -185,24 +185,24 @@
     <dialog id="transfer-wallet-modal">
         <div class="wallet-option-modal">
             <div class="modal-title">
-                <h3 class="modal-header">Move money across wallets</h3>
+                <h3 class="modal-header">Mueve dinero entre billeteras</h3>
                 <p id="close-transfer-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="transfer-wallet-form" method="dialog">
                 <div class="form-section-marker">
-                    <label for="transfer-wallet-source-select">Select your source wallet</label>
+                    <label for="transfer-wallet-source-select">Seleccione su billetera origen</label>
                     <select name="transfer-wallet-source-select" id="transfer-wallet-source-select" required></select>
                 </div>
                 <div class="form-section-marker">
-                    <label for="transfer-wallet-destination-select">Select your destination wallet</label>
+                    <label for="transfer-wallet-destination-select">Seleccione su billetera destino</label>
                     <select name="transfer-wallet-destination-select" id="transfer-wallet-destination-select" required></select>
                 </div>
                 <div class="form-section-marker">
-                    <label for="transfer-wallet-amount-input">Amount of money to move</label>
+                    <label for="transfer-wallet-amount-input">Monto a mover</label>
                     <input type="text" id="transfer-wallet-amount-input" />
                 </div>
                 <div class="form-section-marker">
-                    <input class="modal-btn" type="submit" id="transfer-wallet-form-submit-btn" value="Transfer" />
+                    <input class="modal-btn" type="submit" id="transfer-wallet-form-submit-btn" value="Transferir" />
                 </div>
             </form>
         </div>
@@ -212,10 +212,10 @@
     <dialog id="set-percents-modal">
         <div class="wallet-option-modal">
             <div class="modal-title">
-                <h3 class="modal-header">Set wallet percents</h3>
+                <h3 class="modal-header">Ajustar porcentaje de billeteras</h3>
                 <p id="close-set-percents-modal-btn" class="close-modal-btn">&times;</p>
             </div>
-            <h4 id="total-percent-message">Total percent <span id="total-percent-number"></span>%</h4>
+            <h4 id="total-percent-message">Porcentaje total <span id="total-percent-number"></span>%</h4>
             <form id="set-percents-form" method="dialog">
                 <fieldset id="set-percents-fieldset"></fieldset>
             </form>
@@ -226,24 +226,24 @@
     <dialog id="edit-wallet-modal">
         <div class="wallet-option-modal">
             <div class="modal-title">
-                <h3 class="modal-header">Edit wallets</h3>
+                <h3 class="modal-header">Editar billetera</h3>
                 <p id="close-edit-modal-btn" class="close-modal-btn">&times;</p>
             </div>
             <form id="edit-wallet-form" method="dialog">
                 <div class="form-section-marker">
-                    <label for="wallet-name-edit-input">Wallet name</label>
+                    <label for="wallet-name-edit-input">Nombre</label>
                     <input autofocus type="text" id="wallet-name-edit-input" />
                 </div>
                 <div class="form-section-marker">
-                    <label for="wallet-balance-edit-input">Wallet balance</label>
+                    <label for="wallet-balance-edit-input">Saldo</label>
                     <input type="text" id="wallet-balance-edit-input" />
                 </div>
                 <div class="form-section-marker">
-                    <label for="wallet-percent-edit-input">Wallet percent</label>
+                    <label for="wallet-percent-edit-input">Porcentaje</label>
                     <input type="text" id="wallet-percent-edit-input" />
                 </div>
                 <div class="form-section-marker">
-                    <input class="modal-btn" type="submit" id="edit-wallet-btn" value="Submit" />
+                    <input class="modal-btn" type="submit" id="edit-wallet-btn" value="Editar" />
                 </div>
             </form>
         </div>
